@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SoftwareHouse.Contract.DataContracts
 {
@@ -11,5 +13,11 @@ namespace SoftwareHouse.Contract.DataContracts
         public string Email { get; set; }
         public string Id { get; set; }
         public bool IsDeleted { get; set; }
+
+        public IEnumerable<UserRatingDto> UserRatings { get; set; }
+
+        public IEnumerable<UserWorkPhotoDto> WorkPhotos { get; set; }
+
+        public IEnumerable<ExperianceDto> Experiances { get; set; }
     }
 }

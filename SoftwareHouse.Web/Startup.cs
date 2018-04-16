@@ -16,6 +16,7 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using SoftwareHouse.Contract.Repositories;
 using SoftwareHouse.Contract.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SoftwareHouse.Web
 {
@@ -55,6 +56,10 @@ namespace SoftwareHouse.Web
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -89,8 +94,15 @@ namespace SoftwareHouse.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            //Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions
             app.UseStaticFiles();
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.  
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseIdentity();
 

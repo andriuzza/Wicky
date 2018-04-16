@@ -8,7 +8,7 @@ namespace SoftwareHouse.DataAccess.Models.UserInformation
 
         public string QualificationField { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

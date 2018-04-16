@@ -7,18 +7,19 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SoftwareHouse.DataAccess;
 using System;
+using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180413093638_Init")]
-    partial class Init
+    [Migration("20180416135738_fixes-v2")]
+    partial class fixesv2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -136,6 +137,11 @@ namespace SoftwareHouse.DataAccess.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<DateTime>("BirthDayDateTime");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -144,9 +150,17 @@ namespace SoftwareHouse.DataAccess.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -199,6 +213,76 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.Experiance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ExperianceType");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Experiances");
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.Qualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("QualificationField");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Qualifications");
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Feedback")
+                        .IsRequired();
+
+                    b.Property<string>("UserAssessorId");
+
+                    b.Property<string>("UserEvaluatedId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserAssessorId");
+
+                    b.HasIndex("UserEvaluatedId");
+
+                    b.ToTable("UserRatings");
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserWorkPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserWorkPhoto");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -242,6 +326,40 @@ namespace SoftwareHouse.DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.Experiance", b =>
+                {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "User")
+                        .WithMany("Experiances")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.Qualification", b =>
+                {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Qualifications")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserRating", b =>
+                {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "UserAssessor")
+                        .WithMany()
+                        .HasForeignKey("UserAssessorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "UserEvaluated")
+                        .WithMany()
+                        .HasForeignKey("UserEvaluatedId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserWorkPhoto", b =>
+                {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("WorkPhotos")
+                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }

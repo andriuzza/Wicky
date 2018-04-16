@@ -10,6 +10,7 @@ using SoftwareHouse.Web.Identity.Models.AccountViewModels;
 using SoftwareHouse.Web.Identity.Services;
 using SoftwareHouse.DataAccess.Models;
 using Microsoft.AspNetCore.Authentication;
+using SoftwareHouse.Web.ViewModels.Identity.Models.AccountViewModels;
 
 namespace SoftwareHouse.Web.Controllers
 {
@@ -107,7 +108,15 @@ namespace SoftwareHouse.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Name = model.Name, 
+                    LastName = model.LastName,
+                    BirthDayDateTime = model.BirthDayDateTime,
+                    Address = model.Address
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

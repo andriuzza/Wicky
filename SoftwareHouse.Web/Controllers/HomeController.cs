@@ -10,14 +10,12 @@ namespace SoftwareHouse.Web.Controllers
     {
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+           /* if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction(nameof(ProjectsController.Index), "Projects");
-            }
-            else
-            {
-                return View();
-            }
+            }*/
+                
+            return View();
         }
 
         public IActionResult Error()

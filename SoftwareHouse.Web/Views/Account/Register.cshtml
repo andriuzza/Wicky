@@ -1,4 +1,5 @@
-﻿@model RegisterViewModel
+﻿@using SoftwareHouse.Web.ViewModels.Identity.Models.AccountViewModels
+@model SoftwareHouse.Web.ViewModels.Identity.Models.AccountViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -17,6 +18,39 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="Address" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="LastName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="BirthDayDateTime" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="BirthDayDateTime" class="form-control" />
+                        <span asp-validation-for="BirthDayDateTime" class="text-danger"></span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label asp-for="Password" class="col-md-2 control-label"></label>
                     <div class="col-md-10">

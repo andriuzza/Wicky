@@ -20,7 +20,7 @@ namespace SoftwareHouse.Web.Controllers.API
             _personService = personService;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<IActionResult> GetEmployees()
         {
             var result = await _personService.GetAllUsers();
@@ -33,7 +33,7 @@ namespace SoftwareHouse.Web.Controllers.API
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployee(string id)
         {
             var result = await _personService.GetUser(id);
@@ -46,7 +46,7 @@ namespace SoftwareHouse.Web.Controllers.API
             return Ok(result.ErrorMessage);
         }
 
-        [HttpPost]
+        [HttpPost("")]
         public async Task<IActionResult> AddNewEmployee(ApplicationUserDto userDto)
         {
            var user = await _personService.Add(userDto);
@@ -59,7 +59,7 @@ namespace SoftwareHouse.Web.Controllers.API
             return BadRequest(user.ErrorMessage);
         }
 
-        [HttpPut]
+        [HttpPut(Name = "update")]
         public async Task<IActionResult> UpdateEmployee(ApplicationUserDto userDto)
         {
             var user = await _personService.Update(userDto);

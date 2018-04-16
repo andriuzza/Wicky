@@ -17,9 +17,10 @@ namespace SoftwareHouse.DataAccess.ContextConfiguration
             builder.Property(x => x.QualificationField).IsRequired();
             builder.Property(x => x.QualificationField).IsRequired();
 
-            builder.HasOne(x=>x.ApplicationUser)
+            builder.HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.Qualifications)
-                .HasForeignKey(x => x.ApplicationUserId);
+                .HasForeignKey(x => x.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

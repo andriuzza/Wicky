@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using SoftwareHouse.Contract.DataContracts;
 using SoftwareHouse.Contract.Repositories;
 using SoftwareHouse.DataAccess.CommonGeneric;
 using SoftwareHouse.DataAccess.Models;
+using SoftwareHouse.DataAccess.Models.UserInformation;
 
 namespace SoftwareHouse.DataAccess.Repositories
 {
@@ -22,37 +24,25 @@ namespace SoftwareHouse.DataAccess.Repositories
 
         public async Task<IEnumerable<ApplicationUserDto>> GetAllUsers()
         {
-            var result = await GetAllAsync();
+            var result = await DbSet.Include(x => x.Qualifications)
+                .Include(x => x.UserRatings)
+                .Include(x => x.WorkPhotos)
+                .Include(x => x.Experiances)
+                .ToListAsync();
 
-            return result.Select(x =>
-                new ApplicationUserDto
-                {
-                    Address = x.Address,
-                    Email = x.Email,
-                    Name = x.Name,
-                    LastName = x.LastName,
-                    BirthDayDateTime = x.BirthDayDateTime
-
-                }).ToList();
+            return result.ToApplicationUserDtoList();
         }
 
         public async Task<ApplicationUserDto> GetUser(string id)
         {
-            var user = await DbSet.SingleOrDefaultAsync(x => x.Id.Equals(id));
-
-            if (user == null)
-            {
-                return null;
-            }
-            return new ApplicationUserDto
-            {
-                Id = user.Id,
-                Address = user.Address,
-                Email = user.Email,
-                Name = user.Name,
-                LastName = user.LastName,
-                BirthDayDateTime = user.BirthDayDateTime
-            };
+            var user = await DbSet
+                .Include(x=>x.Qualifications)
+                .Include(x=>x.UserRatings)
+                .Include(x=>x.WorkPhotos)
+                .Include(x=>x.Experiances)
+                .SingleOrDefaultAsync(x => x.Id.Equals(id));
+            
+            return user?.ToApplicationUserDto();
         }
 
         public async Task<ApplicationUserDto> AddUser(ApplicationUserDto user)
@@ -87,8 +77,7 @@ namespace SoftwareHouse.DataAccess.Repositories
             {
                 return null;
             }
-                
-     
+                  
             return new ApplicationUserDto
             {
                 Id = user.Id,
@@ -104,6 +93,84 @@ namespace SoftwareHouse.DataAccess.Repositories
         {
            await Delete(id);
            await _dbContext.SaveChangesAsync();
+        }
+    }
+
+    public static class PersonManagementExtension
+    {
+        public static ApplicationUserDto ToApplicationUserDto(this ApplicationUser user)
+        {
+            return new ApplicationUserDto
+            {
+                Id = user.Id,
+                Address = user.Address,
+                Email = user.Email,
+                Name = user.Name,
+                LastName = user.LastName,
+                BirthDayDateTime = user.BirthDayDateTime
+            };
+
+        }
+        public static IEnumerable<ApplicationUserDto> ToApplicationUserDtoList(this IEnumerable<ApplicationUser> users)
+        {
+            return users.Where(x => x.IsDeleted == false).Select(
+                user => new ApplicationUserDto
+                {
+                    Id = user.Id,
+                    Address = user.Address,
+                    Email = user.Email,
+                    Name = user.Name,
+                    LastName = user.LastName,
+                    BirthDayDateTime = user.BirthDayDateTime,
+                    WorkPhotos = user.WorkPhotos.ToPhotoDto(),
+                    UserRatings = user.UserRatings.ToUserRatingDtos(),
+                    Experiances = user.Experiances.ToExperianceDtos()                    
+                }).ToList();
+        }
+    }
+
+    public static class PersonInfo
+    {
+        public static IEnumerable<UserWorkPhotoDto> ToPhotoDto(this IEnumerable<UserWorkPhoto> photos)
+        {
+            if (photos == null)
+            {
+                return null;
+            }
+
+            return photos.Select(x =>
+            new UserWorkPhotoDto
+            {
+                Id = x.Id,
+                PhotoUrl = x.PhotoUrl
+            });
+        }
+        public static IEnumerable<ExperianceDto> ToExperianceDtos(this IEnumerable<Experiance> experiances)
+        {
+            if (experiances == null)
+            {
+                return null;
+            }
+
+            return experiances.Select(x =>
+                new ExperianceDto
+                {
+                   ExperianceType = (ExperianceType) x.ExperianceType
+                });
+        }
+        public static IEnumerable<UserRatingDto> ToUserRatingDtos(this IEnumerable<UserRating> ratings)
+        {
+            if (ratings == null)
+            {
+                return null;
+            }
+
+            return ratings.Select(x =>
+                new UserRatingDto
+                {
+                   UserEvaluatedId = x.UserEvaluatedId,
+                   Feedback = x.Feedback
+                });
         }
     }
 }

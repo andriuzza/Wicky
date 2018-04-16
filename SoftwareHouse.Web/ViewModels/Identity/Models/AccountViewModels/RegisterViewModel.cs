@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SoftwareHouse.Web.Identity.Models.AccountViewModels
+namespace SoftwareHouse.Web.ViewModels.Identity.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
@@ -12,6 +9,18 @@ namespace SoftwareHouse.Web.Identity.Models.AccountViewModels
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public DateTime BirthDayDateTime { get; set; }
+
+        [Required]
+        public string Address { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

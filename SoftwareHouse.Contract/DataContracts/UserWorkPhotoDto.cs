@@ -6,7 +6,7 @@ namespace SoftwareHouse.Contract.DataContracts
     {
         public int Id { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUserDto ApplicationUser { get; set; }
 
         public string PhotoUrl { get; set; }
