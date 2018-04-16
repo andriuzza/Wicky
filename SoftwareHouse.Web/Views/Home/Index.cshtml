@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SoftwareHouse.Web.ViewModels.Search.SearchViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,18 +10,19 @@
 <div class="row">
     <div class="col-md-4">
         <div class="row banner">
-            <form>
+            <form asp-controller="Home" asp-action="Index" method="post" class="form-horizontal">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Darbo užduotis</label>
-                    <input  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Įvesti čia">
-                    <small id="emailHelp" class="form-text text-muted">Apibūdink ką reikia atlikti</small>
+                    <label asp-for="SearchField" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SearchField" class="form-control" />
+                        <span asp-validation-for="SearchField" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Kategorija</label>
-                    <input class="form-control" id="exampleInputPassword1" placeholder="Kategorija">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </div>
                 </div>
-              
-                <button type="submit" class="btn btn-primary">Ieškoti</button>
             </form>
         </div>
     </div>
@@ -86,4 +88,12 @@
             <img class="img-responsive image-cover" style="height: 300px; "src="~/images/working-happy.jpg" />
         </div>
     </div>
+</div>
+<div class="container">
+    <img src="/images/cropedImage.jpg" alt="Norway" style="width:100%;">
+    <div class="bottom-left">Bottom Left</div>
+    <div class="top-left">Top Left</div>
+    <div class="top-right">Top Right</div>
+    <div class="bottom-right">Bottom Right</div>
+    <div class="centered">Centered</div>
 </div>

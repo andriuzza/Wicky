@@ -1,15 +1,17 @@
-﻿@model System.Collections.Generic.IEnumerable<SoftwareHouse.Contract.DataContracts.ApplicationUserDto>
+﻿@using X.PagedList; 
+@using X.PagedList.Mvc.Core
 
 @{
     ViewBag.Title = "Employees show";
     Layout = "_Layout";
 }
+<link href="/dist/styles/PagedList.css" rel="stylesheet" type="text/css" />
 
 <h2>Darbuotojų sąrašas</h2>
 
-@if (Model != null)
+@if (ViewBag.OnePageOfProducts != null)
 {
-    foreach (var user in Model)
+    foreach (var user in ViewBag.OnePageOfProducts)
     {
         <div class="card" style="padding-bottom: 20px;">
             <div class="row ">
@@ -25,7 +27,6 @@
                         <a href="#" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
-
             </div>
         </div>
     }
@@ -34,3 +35,4 @@ else
 {
     <p>Nerasta jokių darbuotojų</p>
 }
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))

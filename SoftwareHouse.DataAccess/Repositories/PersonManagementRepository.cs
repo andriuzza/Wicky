@@ -25,7 +25,7 @@ namespace SoftwareHouse.DataAccess.Repositories
         public async Task<IEnumerable<ApplicationUserDto>> GetAllUsers()
         {
             var result = await DbSet.Include(x => x.Qualifications)
-                .Include(x => x.UserRatings)
+               // .Include(x => x.UserRatings)
                 .Include(x => x.WorkPhotos)
                 .Include(x => x.Experiances)
                 .ToListAsync();
