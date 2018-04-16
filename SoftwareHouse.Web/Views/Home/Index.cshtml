@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <link href="~/dist/styles/home.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="row banner">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Darbo užduotis</label>
+                    <input  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Įvesti čia">
+                    <small id="emailHelp" class="form-text text-muted">Apibūdink ką reikia atlikti</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Kategorija</label>
+                    <input class="form-control" id="exampleInputPassword1" placeholder="Kategorija">
+                </div>
+              
+                <button type="submit" class="btn btn-primary">Ieškoti</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row banner">
+            <div class="col-md-12">
+                <img class="img-responsive center-block image-cover" style="    max-width: 100%;
+                                      height: 220px"src="~/images/woow.png" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row banner">
+            <div class="col-md-12">
+                <h2 class="text-center banner-text">Wicky - užsidirbk pajamų už tai, ką moki geriausiai</h2>
+                <p class="text-center">Surask žmones, kurie tau galės atlikti reikiamus darbus, arba priešingai - tapk vienu iš jų, ir pasinerk į darbų pasaulį</p>
+            </div>
+                
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 category">
+        <h3 class="category-header">Kas tai?</h3>
+        <p class="category-content">
+            Wicky - bendravimo su laisvai samdomais darbuotojais svetainė, leidžia atsirinkti tinkamiausius darbutojus tavo reikiamai užduočiai atlikti.
+            Tačiau jei manai, kad gali savo laisvalaikį paversti pinigais - tuoj jaus pat užsiregistruok į Wicky ir būk nepriklausomas darbuotojas
+        </p>
+        <div class="col-md-12">
+            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
+  height: 220px"src="~/images/icon-repair.png" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3 class="category-header">Registracija</h3>
+        <p class="category-content">
+            Svetainė, palyginus su kitomis nėra apmokama, todėl visa tai tau kainuos nemokamai
+            - nebereikės kurti  brangių svetainių, svetainę gausi tu iš karto,
+            užsiregistruok čia
+        </p>
+        <div class="col-md-12">
+            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
+                   height: 220px"src="~/images/Icon-Register.png" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3 class="category-header">Kontaktai</h3>
+        <p class="category-content">
+            Jei kilo problemų kreipkis pas mus, greitai atsakysime ir paaiškinsime kaip tas veikia ir kaip greičiausia bus surasti naujų klientų ar laikinų darbuotojų
+        </p>
+        <div class="col-md-12">
+            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
+                                                                         height: 220px"src="~/images/images.png" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@model System.Collections.Generic.IEnumerable<SoftwareHouse.Contract.DataContracts.ApplicationUserDto>
+
+@{
+    ViewBag.Title = "Employees show";
+    Layout = "_Layout";
+}
+
+<h2>All employees</h2>
+
+@if (Model != null)
+{
+    <div class="card w-50">
+        <div class="card-img-top d-flex align-items-center bg-light">
+            <div>
+                <img class="img-fluid" src="http://via.placeholder.com/150x150/1f1a38/ffffff?text=Image" alt="Card image cap">
+            </div>
+            <p class="col p-2 m-0">Text next to the right of the image</p>
+        </div>
+
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+
+}
+else
+{
+    <p>No employees</p>
+}

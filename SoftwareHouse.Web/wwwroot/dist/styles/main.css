@@ -1,0 +1,16 @@
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse {
+    background-color: #85144b;
+    border-color: #85144b;
+}
+.image-cover {
+    max-width: 100%;
+    height: 220px
+}
