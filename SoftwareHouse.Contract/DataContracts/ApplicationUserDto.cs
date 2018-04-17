@@ -19,5 +19,7 @@ namespace SoftwareHouse.Contract.DataContracts
         public IEnumerable<UserWorkPhotoDto> WorkPhotos { get; set; }
 
         public IEnumerable<ExperianceDto> Experiances { get; set; }
+
+        public IEnumerable<QualificationDto> Qualifications { get; set; }
     }
 }

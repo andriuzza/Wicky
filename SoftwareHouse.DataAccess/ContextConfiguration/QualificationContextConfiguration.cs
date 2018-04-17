@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SoftwareHouse.DataAccess.Models;
 using SoftwareHouse.DataAccess.Models.UserInformation;
-using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.ContextConfiguration
 {

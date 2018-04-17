@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using SoftwareHouse.DataAccess.Models.UserInformation;
-using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.Models
 {
@@ -20,7 +18,7 @@ namespace SoftwareHouse.DataAccess.Models
         public Collection<Qualification> Qualifications { get; set; }
 
         //[InverseProperty("ApplicationUser")]
-        [NotMapped]
+        //[NotMapped]
         public Collection<UserRating> UserRatings { get; set; }
 
         public Collection<UserWorkPhoto> WorkPhotos { get; set; }

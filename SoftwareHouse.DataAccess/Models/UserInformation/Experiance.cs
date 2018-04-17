@@ -1,5 +1,4 @@
-﻿using System;
-using Wicky.EntityFramework.Models.PersonalInformation;
+﻿using SoftwareHouse.Contract.DataContracts;
 
 namespace SoftwareHouse.DataAccess.Models.UserInformation
 {

@@ -25,7 +25,7 @@ namespace SoftwareHouse.DataAccess.Repositories
         public async Task<IEnumerable<ApplicationUserDto>> GetAllUsers()
         {
             var result = await DbSet.Include(x => x.Qualifications)
-               // .Include(x => x.UserRatings)
+                .Include(x => x.UserRatings)
                 .Include(x => x.WorkPhotos)
                 .Include(x => x.Experiances)
                 .ToListAsync();
@@ -122,16 +122,19 @@ namespace SoftwareHouse.DataAccess.Repositories
                     Name = user.Name,
                     LastName = user.LastName,
                     BirthDayDateTime = user.BirthDayDateTime,
-                    WorkPhotos = user.WorkPhotos.ToPhotoDto(),
+                    WorkPhotos = user.WorkPhotos.ToPhotoDtos(),
                     UserRatings = user.UserRatings.ToUserRatingDtos(),
-                    Experiances = user.Experiances.ToExperianceDtos()                    
+                    Experiances = user.Experiances.ToExperianceDtos(),
+                    Qualifications = user.Qualifications.ToQualificationDtos()
+                    
                 }).ToList();
         }
     }
 
     public static class PersonInfo
     {
-        public static IEnumerable<UserWorkPhotoDto> ToPhotoDto(this IEnumerable<UserWorkPhoto> photos)
+        /*--------------------------------*/
+        public static IEnumerable<UserWorkPhotoDto> ToPhotoDtos(this IEnumerable<UserWorkPhoto> photos)
         {
             if (photos == null)
             {
@@ -145,19 +148,45 @@ namespace SoftwareHouse.DataAccess.Repositories
                 PhotoUrl = x.PhotoUrl
             });
         }
-        public static IEnumerable<ExperianceDto> ToExperianceDtos(this IEnumerable<Experiance> experiances)
+
+        public static UserWorkPhotoDto ToPhotoDto(this UserWorkPhoto photo)
         {
-            if (experiances == null)
+            if (photo == null)
             {
                 return null;
             }
 
-            return experiances.Select(x =>
+            return
+                new UserWorkPhotoDto
+                {
+                    Id = photo.Id,
+                    PhotoUrl = photo.PhotoUrl
+                };
+        }
+
+        /*--------------------------------*/
+        public static IEnumerable<ExperianceDto> ToExperianceDtos(this IEnumerable<Experiance> experiances)
+        {
+            return experiances?.Select(x =>
                 new ExperianceDto
                 {
-                   ExperianceType = (ExperianceType) x.ExperianceType
+                    ExperianceType = (ExperianceType) x.ExperianceType
                 });
         }
+        public static ExperianceDto ToExperianceDto(this Experiance experiance)
+        {
+            if (experiance == null)
+            {
+                return null;
+            }
+
+            return
+                new ExperianceDto
+                {
+                    ExperianceType = (ExperianceType) experiance.ExperianceType
+                };
+        }
+        /*--------------------------------*/
         public static IEnumerable<UserRatingDto> ToUserRatingDtos(this IEnumerable<UserRating> ratings)
         {
             if (ratings == null)
@@ -168,9 +197,59 @@ namespace SoftwareHouse.DataAccess.Repositories
             return ratings.Select(x =>
                 new UserRatingDto
                 {
+                   UserAssessorId = x.UserAssessorId,
                    UserEvaluatedId = x.UserEvaluatedId,
                    Feedback = x.Feedback
                 });
         }
+        public static UserRatingDto ToUserRatingDto(this UserRating rating)
+        {
+            if (rating == null)
+            {
+                return null;
+            }
+
+            return 
+                new UserRatingDto
+                {
+                    UserAssessorId = rating.UserAssessorId,
+                    UserEvaluatedId = rating.UserEvaluatedId,
+                    Feedback = rating.Feedback
+                };
+        }
+        /*--------------------------------*/
+        public static IEnumerable<QualificationDto> ToQualificationDtos(this IEnumerable<Qualification> qualifications)
+        {
+            if (qualifications == null)
+            {
+                return null;
+            }
+
+            return qualifications.Select(x =>
+                new QualificationDto
+                {
+                    Id = x.Id,
+                    ApplicationUser = x.ApplicationUser.ToApplicationUserDto(),
+                    QualificationField = x.QualificationField
+                });
+        }
+
+        public static QualificationDto ToQualificationDto(this Qualification qualification)
+        {
+            if (qualification == null)
+            {
+                return null;
+            }
+
+            return
+                new QualificationDto
+                {
+                    Id = qualification.Id,
+                    ApplicationUserId = qualification.ApplicationUserId,
+                    QualificationField = qualification.QualificationField,
+                };
+        }
+
+
     }
 }

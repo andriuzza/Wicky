@@ -2,12 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using SoftwareHouse.DataAccess;
 using System;
-using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.Migrations
 {
@@ -249,6 +244,8 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Feedback")
                         .IsRequired();
 
@@ -257,6 +254,8 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.Property<string>("UserEvaluatedId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserAssessorId");
 
@@ -343,6 +342,10 @@ namespace SoftwareHouse.DataAccess.Migrations
 
             modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserRating", b =>
                 {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser")
+                        .WithMany("UserRatings")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "UserAssessor")
                         .WithMany()
                         .HasForeignKey("UserAssessorId")

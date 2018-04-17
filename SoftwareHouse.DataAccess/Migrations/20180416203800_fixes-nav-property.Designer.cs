@@ -8,8 +8,8 @@ using System;
 namespace SoftwareHouse.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180416135738_fixes-v2")]
-    partial class fixesv2
+    [Migration("20180416203800_fixes-nav-property")]
+    partial class fixesnavproperty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,6 +246,8 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Feedback")
                         .IsRequired();
 
@@ -254,6 +256,8 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.Property<string>("UserEvaluatedId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserAssessorId");
 
@@ -340,6 +344,10 @@ namespace SoftwareHouse.DataAccess.Migrations
 
             modelBuilder.Entity("SoftwareHouse.DataAccess.Models.UserInformation.UserRating", b =>
                 {
+                    b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser")
+                        .WithMany("UserRatings")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("SoftwareHouse.DataAccess.Models.ApplicationUser", "UserAssessor")
                         .WithMany()
                         .HasForeignKey("UserAssessorId")
