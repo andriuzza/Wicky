@@ -14,6 +14,7 @@ namespace SoftwareHouse.Contract.Services
         Task<bool> CheckIfExperianceAlreadyExist(string userId, ExperianceType type);
         Task Delete(int id);
         Task<CommonResult<ExperianceDto>> GetById(int id);
+        Task<CommonResult<ExperianceDto>> GetUserExperiances(string id);
         Task<CommonResult> Update(ExperianceDto experianceDto);
     }
 }

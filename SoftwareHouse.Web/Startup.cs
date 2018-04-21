@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,14 +16,19 @@ using SoftwareHouse.Services.Services;
 using SoftwareHouse.Contract.Interfaces;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using SoftwareHouse.Contract.Repositories;
 using SoftwareHouse.Contract.Services;
+using SoftwareHouse.Services.Services.UsersInformation;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SoftwareHouse.Web
 {
     public class Startup
     {
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -52,6 +59,13 @@ namespace SoftwareHouse.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "831154095231-sjqgq2pi9c49o3j9rd92542qkno7bi6i.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "_gifLvxKma3G820SCO9XAA5r";
+            });
+
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -60,6 +74,10 @@ namespace SoftwareHouse.Web
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
+         
+
+       
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -70,9 +88,34 @@ namespace SoftwareHouse.Web
             services.AddScoped<IPersonManagementRepository, PersonManagementRepository>();
             services.AddScoped<IPersonManagementService, PersonManagementService>();
 
+            services.AddScoped<IExperiancesRepository, ExperiancesRepository>();
+            services.AddScoped<IExperiancesService, ExperiancesService>();
+
+            services.AddScoped<IQualificationsService, QualificationsService>();
+            services.AddScoped<IQualificationsRepository, QualificationsRepository>();
+
+            services.AddScoped<IUserRatingsRepository, UserRatingsRepository>();
+            services.AddScoped<IUserRatingsService, UserRatingsService>();
+
+            services.AddScoped<IPhotosOfWorkRepository, PhotosOfWorkRespository>();
+            services.AddScoped<IPhotosOfWorkService, PhotosOfWorkService>();
+
             // Services
             services.AddScoped<IProjectsService, ProjectsService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // uri helper will use this
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>(); 
+            services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
+            {
+                var actionContext = implementationFactory
+                    .GetService<IActionContextAccessor>()
+                    .ActionContext;
+
+                return new UrlHelper(actionContext);
+            }); // instance created ones per request
         }
+      
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -104,7 +147,7 @@ namespace SoftwareHouse.Web
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 

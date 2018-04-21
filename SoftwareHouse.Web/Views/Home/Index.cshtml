@@ -8,41 +8,17 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div id="grad1" class="col-md-12">
         <div class="row banner">
-            <form asp-controller="Home" asp-action="Index" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label asp-for="SearchField" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="SearchField" class="form-control" />
-                        <span asp-validation-for="SearchField" class="text-danger"></span>
-                    </div>
+            <div class="col-md-12 grand-2-smaller">
+                <h1 class="no-stupid-margin text-left banner-text title-text">Wicky</h1>
+                <h4 class="no-stupid-margin text-left title-text">Surask žmones, kurie tau galės atlikti reikiamus darbus,</h4> 
+                <h4 class="no-stupid-margin text-left title-text">arba priešingai - tapk vienu iš jų, ir pasinerk į darbų pasaulį</h4>
+                <div class=" buttons-home">
+                    <button type="button" class="btn btn-lg btn-primary">Išsiūsti darbo pageidavimą</button>
+                    <button type="button" class="btn btn-lg btn-secondary">Ieškoti iš darbuotojų sąrašo</button>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="row banner">
-            <div class="col-md-12">
-                <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                      height: 220px"src="~/images/woow.png" />
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="row banner">
-            <div class="col-md-12">
-                <h2 class="text-center banner-text">Wicky - užsidirbk pajamų už tai, ką moki geriausiai</h2>
-                <p class="text-center">Surask žmones, kurie tau galės atlikti reikiamus darbus, arba priešingai - tapk vienu iš jų, ir pasinerk į darbų pasaulį</p>
-            </div>
-                
         </div>
     </div>
 </div>
@@ -54,8 +30,7 @@
             Tačiau jei manai, kad gali savo laisvalaikį paversti pinigais - tuoj jaus pat užsiregistruok į Wicky ir būk nepriklausomas darbuotojas
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                                                                            height: 220px"src="~/images/icon-repair.png" />
+            <img class="tools-img img-responsive  center-block " src="~/images/icon-repair.png" />
         </div>
     </div>
     <div class="col-md-4">
@@ -66,8 +41,7 @@
             užsiregistruok čia
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                                        height: 220px"src="~/images/Icon-Register.png" />
+            <img class="img-responsive center-block task-img" src="~/images/Icon-Register.png" />
         </div>
     </div>
     <div class="col-md-4">
@@ -76,24 +50,8 @@
             Jei kilo problemų kreipkis pas mus, greitai atsakysime ir paaiškinsime kaip tas veikia ir kaip greičiausia bus surasti naujų klientų ar laikinų darbuotojų
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                                                         height: 220px"src="~/images/images.png" />
+            <img class="img-responsive center-block  mail-img" src="~/images/images.png" />
         </div>
     </div>  
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-8">
-            <img class="img-responsive image-cover" style="height: 300px; "src="~/images/working-happy.jpg" />
-        </div>
-    </div>
-</div>
-<div class="container">
-    <img src="/images/cropedImage.jpg" alt="Norway" style="width:100%;">
-    <div class="bottom-left">Bottom Left</div>
-    <div class="top-left">Top Left</div>
-    <div class="top-right">Top Right</div>
-    <div class="bottom-right">Bottom Right</div>
-    <div class="centered">Centered</div>
-</div>

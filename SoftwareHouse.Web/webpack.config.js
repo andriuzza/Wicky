@@ -10,6 +10,7 @@ const paths = {
 const config = {
         entry: {
             home: './Frontend/Home/home.scss',
+            users: './Frontend/Users/users.scss',
             projects: './Frontend/Projects/index.tsx',
             // Common libraries
             libs: [

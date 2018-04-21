@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SoftwareHouse.Contract.DataContracts;
+using SoftwareHouse.Contract.DataContracts.QueryClass;
+using SoftwareHouse.Contract.Helpers;
 using SoftwareHouse.Contract.Repositories;
 using SoftwareHouse.DataAccess.CommonGeneric;
 using SoftwareHouse.DataAccess.Models;
@@ -21,16 +23,21 @@ namespace SoftwareHouse.DataAccess.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public async Task<IEnumerable<ApplicationUserDto>> GetAllUsers()
+         
+        public async Task<PagedList<ApplicationUserDto>> GetAllUsers(EmployeesResourceParameter employeesResourceParameter)
         {
-            var result = await DbSet.Include(x => x.Qualifications)
+            var result = DbSet.Include(x => x.Qualifications)
                 .Include(x => x.UserRatings)
                 .Include(x => x.WorkPhotos)
-                .Include(x => x.Experiances)
-                .ToListAsync();
+                .Include(x => x.Experiances);
 
-            return result.ToApplicationUserDtoList();
+            var pagedList = PagedList<ApplicationUser>
+                .Create(result, employeesResourceParameter.pageNumber, employeesResourceParameter.PageSize);
+
+            var list = result.ToApplicationUserDtoList().ToList();
+
+            return new PagedList<ApplicationUserDto>(list, pagedList.Count,
+                employeesResourceParameter.pageNumber, employeesResourceParameter.PageSize );
         }
 
         public async Task<ApplicationUserDto> GetUser(string id)
@@ -229,7 +236,6 @@ namespace SoftwareHouse.DataAccess.Repositories
                 new QualificationDto
                 {
                     Id = x.Id,
-                    ApplicationUser = x.ApplicationUser.ToApplicationUserDto(),
                     QualificationField = x.QualificationField
                 });
         }

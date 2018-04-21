@@ -7,7 +7,15 @@
 }
 
 .navbar-inverse {
-    background-color: #85144b;
-    border-color: #85144b;
+    background-color: #20457c;
+    border-color: #20457c;
 }
-    
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+.navbar-brand {
+    font-size: 25px;
+}
+.navbar-inverse .btn-link {
+    color: #f5f5f5;
+}

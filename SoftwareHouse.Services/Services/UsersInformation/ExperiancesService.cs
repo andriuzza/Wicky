@@ -71,5 +71,10 @@ namespace SoftwareHouse.Services.Services.UsersInformation
 
             return CommonResult<ExperianceDto>.Success(experianceDto);
         }
+
+        public async Task<CommonResult<ExperianceDto>> GetUserExperiances(string id)
+        {
+            throw new NotImplementedException(); 
+        }
     }
 }
