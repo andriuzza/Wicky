@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="GeoLite2-City_20180403\GeoLite2-City.mmdb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Frontend\Employees\Models\EmployeeExperiance.ts" />
     <Content Include="Frontend\Employees\Models\EmployeeWorkPhoto.ts" />
   </ItemGroup>
