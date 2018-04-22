@@ -2,6 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
+using SoftwareHouse.Contract.DataContracts;
+using SoftwareHouse.DataAccess;
 using System;
 
 namespace SoftwareHouse.DataAccess.Migrations
@@ -188,6 +193,18 @@ namespace SoftwareHouse.DataAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SoftwareHouse.DataAccess.Models.LocationInformation.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("SoftwareHouse.DataAccess.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -246,8 +263,9 @@ namespace SoftwareHouse.DataAccess.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
-                    b.Property<string>("Feedback")
-                        .IsRequired();
+                    b.Property<string>("Feedback");
+
+                    b.Property<int>("StarType");
 
                     b.Property<string>("UserAssessorId");
 

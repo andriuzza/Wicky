@@ -27,6 +27,7 @@ namespace SoftwareHouse.DataAccess.Repositories
         public async Task<PagedList<ApplicationUserDto>> GetAllUsers(EmployeesResourceParameter employeesResourceParameter)
         {
             var result = DbSet.Include(x => x.Qualifications)
+                .SortOrder(employeesResourceParameter.SortingType)
                 .Include(x => x.UserRatings)
                 .Include(x => x.WorkPhotos)
                 .Include(x => x.Experiances);
@@ -257,5 +258,29 @@ namespace SoftwareHouse.DataAccess.Repositories
         }
 
 
+    }
+
+    public static class EmployeeSortingExtension
+    {
+        public static IQueryable<ApplicationUser> SortOrder(this IQueryable<ApplicationUser> queryList,
+            SortingType typeSortingType)
+        {
+            switch (typeSortingType)
+            {
+                case SortingType.ByNameAsc:
+                    queryList.OrderBy(x => x.Name);
+                    break;
+                case SortingType.ByDistance:
+                    queryList.OrderBy(x => x.Address);
+                    break;
+                case SortingType.ByRating:
+                    queryList.OrderBy(x => x.LastName);
+                    break;
+                default:
+                    queryList.OrderBy(x => x.Name);
+                    break;
+            }
+            return queryList;
+        }
     }
 }

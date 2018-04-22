@@ -32,7 +32,9 @@ namespace SoftwareHouse.DataAccess.Repositories
             {
                 UserAssessorId = userRatingDto.UserAssessorId,
                 UserEvaluatedId = userRatingDto.UserEvaluatedId,
-                Feedback = userRatingDto.Feedback
+                Feedback = userRatingDto.Feedback,
+                StarType = userRatingDto.StarType
+
             };
 
             await DbSet.AddAsync(userRating);
@@ -67,7 +69,8 @@ namespace SoftwareHouse.DataAccess.Repositories
                 Id = result.Id,
                 UserAssessorId = userRatingDto.UserAssessorId,
                 UserEvaluatedId = userRatingDto.UserEvaluatedId,
-                Feedback = userRatingDto.Feedback
+                Feedback = userRatingDto.Feedback,
+                StarType = userRatingDto.StarType
             };
         }
 

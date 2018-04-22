@@ -15,9 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Frontend\Employees\Models\EmployeeExperiance.ts" />
+    <Content Include="Frontend\Employees\Models\EmployeeWorkPhoto.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaxMind.GeoIP2" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
-    <PackageReference Include="Painless.Serializer.JsonNet" Version="0.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2.4" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
@@ -36,5 +41,8 @@
     <None Include="Views\Users\GetUsers.cshtml" />
     <None Include="wwwroot\images\List.png" />
     <None Include="wwwroot\images\Logo-big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Frontend\NewFolder\" />
   </ItemGroup>
 </Project>

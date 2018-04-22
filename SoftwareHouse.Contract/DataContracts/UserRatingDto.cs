@@ -13,5 +13,7 @@ namespace SoftwareHouse.Contract.DataContracts
         public string UserEvaluatedId { get; set; }
 
         public string Feedback { get; set; }
+
+        public StarNumberType StarType { get; set; }
     }
 }

@@ -48,6 +48,12 @@ namespace SoftwareHouse.Services.Services.UsersInformation
                 return CommonResult.Failure("Cannot create user without userEvaluatedId provided.");
             }
 
+            if (Enum.IsDefined(typeof(StarNumberType), ratingDto.StarType))
+            {
+                return CommonResult.Failure("Wrong enum value.");
+            }
+              
+
             await _ratingsRepository.Add(ratingDto);
 
             return CommonResult.Success();

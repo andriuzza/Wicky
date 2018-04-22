@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MaxMind.GeoIP2;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PainlessHttp.Serializer.JsonNet;
 using SoftwareHouse.Contract.DataContracts;
 using SoftwareHouse.Contract.DataContracts.QueryClass;
 using SoftwareHouse.Contract.Helpers;
@@ -19,12 +20,19 @@ namespace SoftwareHouse.Web.Controllers.API
     {
         private readonly IPersonManagementService _personService;
         private readonly IUrlHelper _uriHelper;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IHttpContextAccessor _accessor;
+
 
         public EmployeesController(IPersonManagementService personService,
-            IUrlHelper uriHelper)
+            IUrlHelper uriHelper,
+            IHostingEnvironment hostingEnvironment,
+            IHttpContextAccessor accessor)
         {
             _personService = personService;
             _uriHelper = uriHelper;
+            _hostingEnvironment = hostingEnvironment;
+            _accessor = accessor;
         }
 
         [HttpGet(Name = "GetEmployees")]
@@ -41,6 +49,7 @@ namespace SoftwareHouse.Web.Controllers.API
                 ? GetEmployeesUri(employeesResourceParameter, ResourceUriType.NextPage)
                 : null;
 
+
             var metadata = new
             {
                 totalCount = result.TotalCount,
@@ -49,7 +58,8 @@ namespace SoftwareHouse.Web.Controllers.API
                 currentPage = result.CurrentPage,
                 nextPage = nextPage,
                 previousPage = previousPage,
-            };
+             //   city = GetUserLocation()
+        };
             
             Response.Headers.Add("Pagination", JsonConvert.SerializeObject(metadata));
 
@@ -61,6 +71,18 @@ namespace SoftwareHouse.Web.Controllers.API
             return Ok(result);
         }
 
+        private string GetUserLocation()
+        {
+            using (var reader = new DatabaseReader(_hostingEnvironment.ContentRootPath + "\\GeoLite2-City_20180403" + "\\GeoLite2-City.mmdb"))
+            {
+                // Determine the IP Address of the request
+                var ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress;
+                var res = ipAddress.ToString();
+                // Get the city from the IP Address
+                var city = reader.City(ipAddress);
+                return city.City.Name.ToString();
+            }
+        }
         private string GetEmployeesUri(EmployeesResourceParameter employeesResourceParameter,
             ResourceUriType type)
         {

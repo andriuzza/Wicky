@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SoftwareHouse.DataAccess.ContextConfiguration;
 using SoftwareHouse.DataAccess.Models;
+using SoftwareHouse.DataAccess.Models.LocationInformation;
 using SoftwareHouse.DataAccess.Models.UserInformation;
 
 namespace SoftwareHouse.DataAccess
@@ -15,6 +16,9 @@ namespace SoftwareHouse.DataAccess
         public DbSet<Experiance> Experiances { get; set; }
         public DbSet<UserRating> UserRatings { get; set; }
         public DbSet<UserWorkPhoto> UserWorkPhotos { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

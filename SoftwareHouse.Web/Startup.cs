@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.Google;
+﻿using System;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -132,6 +136,15 @@ namespace SoftwareHouse.Web
                     ReactHotModuleReplacement = true,
                     HotModuleReplacementEndpoint = "/dist/__webpack_hmr"
                 });
+
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor,
+
+                    // IIS is also tagging a X-Forwarded-For header on, so we need to increase this limit, 
+                    // otherwise the X-Forwarded-For we are passing along from the browser will be ignored
+                    ForwardLimit = 2
+                });
             }
             else
             {
@@ -139,7 +152,25 @@ namespace SoftwareHouse.Web
             }
             //Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions
             app.UseStaticFiles();
+
             app.UseSwagger();
+
+            app.UseExceptionHandler(
+                builder =>
+                {
+                    builder.Run(
+                        async context =>
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            context.Response.ContentType = "text/html";
+
+                            var error = context.Features.Get<IExceptionHandlerFeature>();
+                            if (error != null)
+                            {
+                                await context.Response.WriteAsync($"<h1>Error: {error.Error.Message}</h1>").ConfigureAwait(false);
+                            }
+                        });
+                });
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.  
             app.UseSwaggerUI(c =>
