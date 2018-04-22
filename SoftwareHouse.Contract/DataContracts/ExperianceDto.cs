@@ -7,6 +7,6 @@ namespace SoftwareHouse.Contract.DataContracts
         public int Id { get; set; }
         public ExperianceType ExperianceType { get; set; }
         public ApplicationUserDto User { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

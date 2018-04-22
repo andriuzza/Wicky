@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Identity;
 using SoftwareHouse.DataAccess.Models.UserInformation;
-using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.Models
 {
@@ -18,11 +17,15 @@ namespace SoftwareHouse.DataAccess.Models
         /*---------------------*/
         public Collection<Qualification> Qualifications { get; set; }
 
-        public Collection<UserRating> Ratings { get; set; }
+        //[InverseProperty("ApplicationUser")]
+        //[NotMapped]
+        public Collection<UserRating> UserRatings { get; set; }
 
         public Collection<UserWorkPhoto> WorkPhotos { get; set; }
 
         public Collection<Experiance> Experiances { get; set; }
+
+      
 
         public bool IsDeleted { get; set; }
     }

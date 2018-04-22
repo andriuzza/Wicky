@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SoftwareHouse.Web.ViewModels.Search.SearchViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,40 +8,17 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div id="grad1" class="col-md-12">
         <div class="row banner">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Darbo užduotis</label>
-                    <input  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Įvesti čia">
-                    <small id="emailHelp" class="form-text text-muted">Apibūdink ką reikia atlikti</small>
+            <div class="col-md-12 grand-2-smaller">
+                <h1 class="no-stupid-margin text-left banner-text title-text">Wicky</h1>
+                <h4 class="no-stupid-margin text-left title-text">Surask žmones, kurie tau galės atlikti reikiamus darbus,</h4> 
+                <h4 class="no-stupid-margin text-left title-text">arba priešingai - tapk vienu iš jų, ir pasinerk į darbų pasaulį</h4>
+                <div class=" buttons-home">
+                    <button type="button" class="btn btn-lg btn-primary">Išsiūsti darbo pageidavimą</button>
+                    <button type="button" class="btn btn-lg btn-secondary">Ieškoti iš darbuotojų sąrašo</button>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Kategorija</label>
-                    <input class="form-control" id="exampleInputPassword1" placeholder="Kategorija">
-                </div>
-              
-                <button type="submit" class="btn btn-primary">Ieškoti</button>
-            </form>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="row banner">
-            <div class="col-md-12">
-                <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                      height: 220px"src="~/images/woow.png" />
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="row banner">
-            <div class="col-md-12">
-                <h2 class="text-center banner-text">Wicky - užsidirbk pajamų už tai, ką moki geriausiai</h2>
-                <p class="text-center">Surask žmones, kurie tau galės atlikti reikiamus darbus, arba priešingai - tapk vienu iš jų, ir pasinerk į darbų pasaulį</p>
-            </div>
-                
         </div>
     </div>
 </div>
@@ -52,8 +30,7 @@
             Tačiau jei manai, kad gali savo laisvalaikį paversti pinigais - tuoj jaus pat užsiregistruok į Wicky ir būk nepriklausomas darbuotojas
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-  height: 220px"src="~/images/icon-repair.png" />
+            <img class="tools-img img-responsive  center-block " src="~/images/icon-repair.png" />
         </div>
     </div>
     <div class="col-md-4">
@@ -64,8 +41,7 @@
             užsiregistruok čia
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                   height: 220px"src="~/images/Icon-Register.png" />
+            <img class="img-responsive center-block task-img" src="~/images/Icon-Register.png" />
         </div>
     </div>
     <div class="col-md-4">
@@ -74,8 +50,8 @@
             Jei kilo problemų kreipkis pas mus, greitai atsakysime ir paaiškinsime kaip tas veikia ir kaip greičiausia bus surasti naujų klientų ar laikinų darbuotojų
         </p>
         <div class="col-md-12">
-            <img class="img-responsive center-block image-cover" style="    max-width: 100%;
-                                                                         height: 220px"src="~/images/images.png" />
+            <img class="img-responsive center-block  mail-img" src="~/images/images.png" />
         </div>
-    </div>
+    </div>  
 </div>
+

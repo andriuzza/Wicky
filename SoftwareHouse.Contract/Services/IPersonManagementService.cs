@@ -4,12 +4,14 @@ using System.Text;
 using System.Threading.Tasks;
 using SoftwareHouse.Contract.Common;
 using SoftwareHouse.Contract.DataContracts;
+using SoftwareHouse.Contract.DataContracts.QueryClass;
+using SoftwareHouse.Contract.Helpers;
 
 namespace SoftwareHouse.Contract.Services
 {
     public interface IPersonManagementService
     {
-        Task<IEnumerable<ApplicationUserDto>> GetAllUsers();
+        Task<PagedList<ApplicationUserDto>> GetAllUsers(EmployeesResourceParameter employeesResourceParameter);
         Task<CommonResult> Add(ApplicationUserDto user);
         Task Delete(string id);
         Task<CommonResult<ApplicationUserDto>> GetUser(string id);

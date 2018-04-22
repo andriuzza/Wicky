@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SoftwareHouse.DataAccess.Models;
 using SoftwareHouse.DataAccess.Models.UserInformation;
-using Wicky.EntityFramework.Models.PersonalInformation;
 
 namespace SoftwareHouse.DataAccess.ContextConfiguration
 {
@@ -17,9 +15,10 @@ namespace SoftwareHouse.DataAccess.ContextConfiguration
             builder.Property(x => x.QualificationField).IsRequired();
             builder.Property(x => x.QualificationField).IsRequired();
 
-            builder.HasOne(x=>x.ApplicationUser)
+            builder.HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.Qualifications)
-                .HasForeignKey(x => x.ApplicationUserId);
+                .HasForeignKey(x => x.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

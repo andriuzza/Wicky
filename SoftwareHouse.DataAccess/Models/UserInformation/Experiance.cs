@@ -1,5 +1,4 @@
-﻿using System;
-using Wicky.EntityFramework.Models.PersonalInformation;
+﻿using SoftwareHouse.Contract.DataContracts;
 
 namespace SoftwareHouse.DataAccess.Models.UserInformation
 {
@@ -8,7 +7,7 @@ namespace SoftwareHouse.DataAccess.Models.UserInformation
         public int Id { get; set; }
         public ExperianceType ExperianceType { get; set; }
         public ApplicationUser User { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
     }
 

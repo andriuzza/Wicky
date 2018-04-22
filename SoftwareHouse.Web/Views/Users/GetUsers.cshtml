@@ -1,30 +1,41 @@
-﻿@model System.Collections.Generic.IEnumerable<SoftwareHouse.Contract.DataContracts.ApplicationUserDto>
+﻿@using X.PagedList; 
+@using X.PagedList.Mvc.Core
 
 @{
     ViewBag.Title = "Employees show";
     Layout = "_Layout";
 }
 
-<h2>All employees</h2>
 
-@if (Model != null)
+ <link href="~/dist/styles/users.css" rel="stylesheet" />
+<link href="/dist/styles/PagedList.css" rel="stylesheet" type="text/css" />
+
+<h2>Darbuotojų sąrašas</h2>
+
+@if (ViewBag.OnePageOfProducts != null)
 {
-    <div class="card w-50">
-        <div class="card-img-top d-flex align-items-center bg-light">
-            <div>
-                <img class="img-fluid" src="http://via.placeholder.com/150x150/1f1a38/ffffff?text=Image" alt="Card image cap">
+    foreach (var user in ViewBag.OnePageOfProducts)
+    {
+        <div class="card" style="padding-bottom: 20px;">
+            <div class="row ">
+                <div class="col-md-4" style="width: 100%">
+                    <img src="/images/user77.png" class="w-100">
+                </div>
+                <div class="col-md-8 px-3">
+                    <div class="card-block px-3">
+                        <h4 class="card-title">@user.Name @user.LastName</h4>
+                        <p>@user.Address email: @user.Email</p>
+                        <p class="card-text">Informacija apie jį: Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        <p class="card-text">Akcijos: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
             </div>
-            <p class="col p-2 m-0">Text next to the right of the image</p>
         </div>
-
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-
+    }
 }
 else
 {
-    <p>No employees</p>
+    <p>Nerasta jokių darbuotojų</p>
 }
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))

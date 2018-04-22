@@ -11,19 +11,20 @@ namespace SoftwareHouse.DataAccess.ContextConfiguration
         public void Configure(EntityTypeBuilder<UserRating> builder)
         {
             builder.HasKey(sp => sp.Id);
-
-            builder.Property(s => s.Feedback)
-                .IsRequired();
-
+            
             builder.HasOne(x => x.UserAssessor)
-                .WithMany(x => x.Ratings)
+                .WithMany()
                 .HasForeignKey(x => x.UserAssessorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.UserEvaluated)
-                .WithMany(x => x.Ratings)
+                .WithMany()
                 .HasForeignKey(x => x.UserEvaluatedId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(s => s.StarType)
+                .IsRequired();
+
         }
     }
 }

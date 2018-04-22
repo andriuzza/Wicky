@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SoftwareHouse.Contract.Common;
 using SoftwareHouse.Contract.DataContracts;
+using SoftwareHouse.Contract.DataContracts.QueryClass;
+using SoftwareHouse.Contract.Helpers;
 using SoftwareHouse.Contract.Repositories;
 using SoftwareHouse.Contract.Services;
 
@@ -19,9 +21,9 @@ namespace SoftwareHouse.Services.Services
             _personRepository = personRepository;
         }
 
-        public async Task<IEnumerable<ApplicationUserDto>> GetAllUsers()
+        public async Task<PagedList<ApplicationUserDto>> GetAllUsers(EmployeesResourceParameter employeesResourceParameter)
         {
-            var result = await _personRepository.GetAllUsers();
+            var result = await _personRepository.GetAllUsers(employeesResourceParameter);
 
             if (!result.Any())
             {

@@ -8,7 +8,7 @@ namespace SoftwareHouse.Contract.DataContracts
 
         public string QualificationField { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUserDto ApplicationUser { get; set; }
     }
 }

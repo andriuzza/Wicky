@@ -19,3 +19,70 @@
 .category-content {
     color: #333;
 }
+
+#grad1 {
+    height: 350px;
+    background-color: #cccccc;
+    background-image: url("../../wwwroot/images/cropedImage.jpg");
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-size: cover;
+    overflow: hidden;
+   
+}
+.navbar {
+
+    margin-bottom: 0px;
+   
+}
+
+.title-text {
+    margin-left: 0px
+}
+.buttons-home{
+    margin-left: 0px;
+    margin-bottom: 12px;
+}
+.grand-2-smaller {
+    background-color: white;
+    width: 37%;
+    border-radius: 12px;
+    position: relative; /* has to be position relative for left to work, or you could just do margin-left: -50px; too */
+    left: 180px;
+}
+
+.no-stupid-margin {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #075d74;
+    border-color: #075d74;
+}
+
+.tools-img {
+    width: 45%;
+    height: 120px;
+}
+.task-img {
+    width: 55%;
+    height: 180px;
+}
+.mail-img {
+    width: 55%;
+    height: 180px;
+}
